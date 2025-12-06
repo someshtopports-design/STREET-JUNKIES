@@ -1,15 +1,14 @@
 import { GoogleGenAI } from "@google/genai";
 import { Product, Sale, Brand, SaleItem } from "../types";
 
-const apiKey = process.env.API_KEY || '';
-const ai = new GoogleGenAI({ apiKey });
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const generateDashboardInsights = async (
   products: Product[],
   sales: Sale[],
   brands: Brand[]
 ): Promise<string> => {
-  if (!apiKey) return "API Key not configured. Unable to generate AI insights.";
+  if (!process.env.API_KEY) return "API Key not configured. Unable to generate AI insights.";
 
   const lowStockItems = products.filter(p => p.stock < 10).map(p => `${p.name} (${p.brandId}) - Stock: ${p.stock}`);
   const salesSummary = sales.slice(-10).map(s => `Total: $${s.totalAmount}`).join(", ");
@@ -47,7 +46,7 @@ export const generateSettlementEmail = async (
   items: SaleItem[],
   commissionRate: number
 ): Promise<string> => {
-  if (!apiKey) return "API Key missing.";
+  if (!process.env.API_KEY) return "API Key missing.";
 
   // Prepare item data for the model to group
   const itemsData = items.map(i => `Product: ${i.productName} - ${i.size} | Qty: ${i.quantity} | Price: ${i.sellingPrice}`).join('\n');
