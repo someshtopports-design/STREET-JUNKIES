@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { Product, Sale, Brand, SaleItem } from "../types";
+import { Product, Sale, Brand, SaleItem, StoreProfile } from "../types";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -44,7 +44,8 @@ export const generateSettlementEmail = async (
   netPayout: number,
   date: string,
   items: SaleItem[],
-  commissionRate: number
+  commissionRate: number,
+  storeProfile: StoreProfile
 ): Promise<string> => {
   if (!process.env.API_KEY) return "API Key missing.";
 
@@ -64,6 +65,13 @@ export const generateSettlementEmail = async (
     - Commission Rate: ${commissionRate}%
     - Commission Amount: ${commission}
     - Net Payout: ${netPayout}
+    
+    Store Details:
+    - Name: ${storeProfile.name}
+    - Address: ${storeProfile.address}
+    - Phone: ${storeProfile.phone}
+    - Email: ${storeProfile.email}
+    - GST: ${storeProfile.gst}
 
     Instructions:
     1. Group identical items (Same Name and Size) in the table and sum their Quantity and Amount.
@@ -72,12 +80,11 @@ export const generateSettlementEmail = async (
 
     TEMPLATE STARTS HERE:
 
-    STREET JUNKIES INDIA
-    Ground Floor of Property No. M-84, Greater Kailash Part-2,
-    M-Block Market, New Delhi – 110048
-    Phone: 6363299237
-    GST: 07ABMCS5480Q1ZD
-    Email: streetjunkiesindia@gmail.com ↗
+    ${storeProfile.name}
+    ${storeProfile.address}
+    Phone: ${storeProfile.phone}
+    GST: ${storeProfile.gst}
+    Email: ${storeProfile.email} ↗
 
     ***
 
@@ -108,9 +115,8 @@ export const generateSettlementEmail = async (
 
     This is a system-generated invoice and does not require a physical signature.
 
-    Srikanth Dannana
-    CEO / Founder
-    STREET JUNKIES INDIA
+    Store Admin
+    ${storeProfile.name}
   `;
 
   try {
