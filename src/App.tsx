@@ -12,7 +12,7 @@ import { Menu } from 'lucide-react';
 const App: React.FC = () => {
   const [currentTab, setCurrentTab] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
+
   // Global State (Mock Database)
   const [brands, setBrands] = useState<Brand[]>(INITIAL_BRANDS);
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
@@ -28,6 +28,7 @@ const App: React.FC = () => {
         return <Inventory products={products} setProducts={setProducts} brands={brands} />;
       case 'pos':
         return <PointOfSale products={products} setProducts={setProducts} brands={brands} sales={sales} setSales={setSales} />;
+
       case 'reports':
         return <Reports sales={sales} brands={brands} />;
       default:
@@ -37,13 +38,13 @@ const App: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden font-sans">
-      <Sidebar 
-        currentTab={currentTab} 
-        setCurrentTab={setCurrentTab} 
+      <Sidebar
+        currentTab={currentTab}
+        setCurrentTab={setCurrentTab}
         isOpen={sidebarOpen}
         setIsOpen={setSidebarOpen}
       />
-      
+
       <main className="flex-1 flex flex-col h-screen overflow-hidden relative">
         {/* Mobile Header - Glassmorphic */}
         <div className="lg:hidden absolute top-0 left-0 right-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm">
@@ -51,10 +52,10 @@ const App: React.FC = () => {
             <Menu size={24} />
           </button>
           <div className="flex items-center gap-2">
-             <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-heading font-black italic text-xs">SJ</span>
-             </div>
-             <span className="font-heading font-bold text-slate-900 italic tracking-tight">StreetJunkies</span>
+            <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
+              <span className="text-white font-heading font-black italic text-xs">SJ</span>
+            </div>
+            <span className="font-heading font-bold text-slate-900 italic tracking-tight">StreetJunkies</span>
           </div>
           <div className="w-8"></div> {/* Spacer for balance */}
         </div>

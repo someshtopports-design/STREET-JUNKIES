@@ -44,8 +44,8 @@ export const Reports: React.FC<ReportsProps> = ({ sales, brands }) => {
     };
   });
 
-  const filteredStats = selectedBrand === 'all' 
-    ? brandStats 
+  const filteredStats = selectedBrand === 'all'
+    ? brandStats
     : brandStats.filter(s => s.brand.id === selectedBrand);
 
   const handleDraftEmail = async (stat: typeof brandStats[0]) => {
@@ -105,23 +105,23 @@ export const Reports: React.FC<ReportsProps> = ({ sales, brands }) => {
           <p className="text-slate-500 mt-1">Monthly payouts and automated brand reports.</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-             <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-sm flex-1 sm:flex-none">
-               <span className="text-xs text-slate-400 font-bold uppercase">Filter:</span>
-               <select 
-                 className="bg-transparent border-none text-sm font-bold focus:ring-0 text-slate-700 py-1 outline-none w-full"
-                 value={selectedBrand}
-                 onChange={e => setSelectedBrand(e.target.value)}
-               >
-                 <option value="all">All Brands</option>
-                 {brands.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
-               </select>
-            </div>
-             <button 
-                onClick={downloadFullReport}
-                className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 active:scale-95 flex-1 sm:flex-none"
-             >
-                <Table size={18} /> Export Excel
-             </button>
+          <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-sm flex-1 sm:flex-none">
+            <span className="text-xs text-slate-400 font-bold uppercase">Filter:</span>
+            <select
+              className="bg-transparent border-none text-sm font-bold focus:ring-0 text-slate-700 py-1 outline-none w-full"
+              value={selectedBrand}
+              onChange={e => setSelectedBrand(e.target.value)}
+            >
+              <option value="all">All Brands</option>
+              {brands.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
+            </select>
+          </div>
+          <button
+            onClick={downloadFullReport}
+            className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 active:scale-95 flex-1 sm:flex-none"
+          >
+            <Table size={18} /> Export Excel
+          </button>
         </div>
       </div>
 
@@ -149,12 +149,12 @@ export const Reports: React.FC<ReportsProps> = ({ sales, brands }) => {
                     <td className="px-6 py-4 text-right font-mono text-emerald-600 bg-emerald-50/30">+₹{stat.storeCommission.toFixed(2)}</td>
                     <td className="px-6 py-4 text-right font-mono font-bold text-slate-900 text-base">₹{stat.netPayable.toFixed(2)}</td>
                     <td className="px-6 py-4 flex justify-center gap-2">
-                       <button 
-                         onClick={() => handleDraftEmail(stat)}
-                         className="flex items-center gap-2 px-3 py-1.5 text-indigo-600 hover:text-white hover:bg-indigo-600 rounded-lg transition-all font-medium text-xs bg-indigo-50"
-                       >
-                         <Mail size={16} /> Draft Invoice
-                       </button>
+                      <button
+                        onClick={() => handleDraftEmail(stat)}
+                        className="flex items-center gap-2 px-3 py-1.5 text-indigo-600 hover:text-white hover:bg-indigo-600 rounded-lg transition-all font-medium text-xs bg-indigo-50"
+                      >
+                        <Mail size={16} /> Draft Invoice
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -165,54 +165,54 @@ export const Reports: React.FC<ReportsProps> = ({ sales, brands }) => {
 
         {/* Email Drafter Section - Modal Style */}
         {emailDraft && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-                <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95">
-                    <div className="p-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                        <div className="flex items-center gap-3">
-                            <div className="bg-indigo-100 p-2 rounded-lg text-indigo-600">
-                                <Mail size={20} />
-                            </div>
-                            <div>
-                                <h3 className="font-heading font-bold text-slate-900">System Invoice</h3>
-                                <p className="text-xs text-slate-500">AI Generated • {new Date().toLocaleDateString()}</p>
-                            </div>
-                        </div>
-                        <button onClick={() => setEmailDraft('')} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-500">
-                            <X size={20} />
-                        </button>
-                    </div>
-                    
-                    <div className="flex-1 p-0 overflow-hidden relative">
-                         <textarea 
-                            className="w-full h-[500px] p-6 border-0 focus:ring-0 outline-none font-mono text-sm leading-relaxed text-slate-700 resize-none bg-white whitespace-pre"
-                            value={emailDraft}
-                            onChange={(e) => setEmailDraft(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="p-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-                        <button onClick={() => setEmailDraft('')} className="px-5 py-2.5 text-slate-600 hover:bg-slate-200 rounded-xl font-bold transition-colors">Discard</button>
-                        <button 
-                            onClick={() => alert("Invoice sent to brand contact!")} 
-                            className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-indigo-200"
-                        >
-                            <Send size={18} /> Send Invoice
-                        </button>
-                    </div>
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95">
+              <div className="p-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                <div className="flex items-center gap-3">
+                  <div className="bg-indigo-100 p-2 rounded-lg text-indigo-600">
+                    <Mail size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-slate-900">System Invoice</h3>
+                    <p className="text-xs text-slate-500">AI Generated • {new Date().toLocaleDateString()}</p>
+                  </div>
                 </div>
+                <button onClick={() => setEmailDraft('')} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-500">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="flex-1 p-0 overflow-hidden relative">
+                <textarea
+                  className="w-full h-[500px] p-6 border-0 focus:ring-0 outline-none font-mono text-sm leading-relaxed text-slate-700 resize-none bg-white whitespace-pre"
+                  value={emailDraft}
+                  onChange={(e) => setEmailDraft(e.target.value)}
+                />
+              </div>
+
+              <div className="p-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button onClick={() => setEmailDraft('')} className="px-5 py-2.5 text-slate-600 hover:bg-slate-200 rounded-xl font-bold transition-colors">Discard</button>
+                <button
+                  onClick={() => alert("Invoice sent to brand contact!")}
+                  className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-indigo-200"
+                >
+                  <Send size={18} /> Send Invoice
+                </button>
+              </div>
             </div>
+          </div>
         )}
       </div>
-      
+
       {/* Loading Overlay */}
       {loadingDraft && (
-          <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center animate-in fade-in">
-              <div className="bg-white p-8 rounded-3xl shadow-2xl flex flex-col items-center">
-                  <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                  <p className="font-heading font-bold text-slate-800 text-lg">Generating Invoice...</p>
-                  <p className="text-slate-500 text-sm">Drafting bill for {filteredStats.find(s => s.brand.id === draftingFor)?.brand.name}...</p>
-              </div>
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center animate-in fade-in">
+          <div className="bg-white p-8 rounded-3xl shadow-2xl flex flex-col items-center">
+            <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p className="font-heading font-bold text-slate-800 text-lg">Generating Invoice...</p>
+            <p className="text-slate-500 text-sm">Drafting bill for {filteredStats.find(s => s.brand.id === draftingFor)?.brand.name}...</p>
           </div>
+        </div>
       )}
     </div>
   );
